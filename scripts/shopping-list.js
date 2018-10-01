@@ -1,4 +1,5 @@
 /* global store, cuid */
+/* eslint strict:0 */
 
 // eslint-disable-next-line no-unused-vars
 const shoppingList = (function(){
@@ -14,7 +15,7 @@ const shoppingList = (function(){
     }
   
     return `
-      <li class="js-item-element" data-item-id="${item.id}">
+      <li class="js-item-element" data-items-id="${item.id}">
         ${itemTitle}
         <div class="shopping-item-controls">
           <button class="shopping-item-toggle js-item-toggle">
@@ -56,7 +57,8 @@ const shoppingList = (function(){
   
   
   function addItemToShoppingList(itemName) {
-    store.items.push({ id: cuid(), name: itemName, checked: false });
+    store.items.push({ id: cuid(),
+      name: itemName, checked: false });
   }
   
   function handleNewItemSubmit() {
