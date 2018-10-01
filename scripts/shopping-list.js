@@ -55,23 +55,12 @@ const shoppingList = (function(){
     $('.js-shopping-list').html(shoppingListItemsString);
   }
   
-  
-  function addItemToShoppingList(itemName) {
-    try {
-      Item.validateName(itemName);
-      let validItem = Item.create(itemName);
-      store.items.push(validItem);
-    } catch (error) {
-      console.log(`Cannot add item: ${error.message}`);
-    }
-  }
-  
   function handleNewItemSubmit() {
     $('#js-shopping-list-form').submit(function (event) {
       event.preventDefault();
       const newItemName = $('.js-shopping-list-entry').val();
       $('.js-shopping-list-entry').val('');
-      addItemToShoppingList(newItemName);
+      store.addItem(newItemName);
       render();
     });
   }
@@ -89,10 +78,6 @@ const shoppingList = (function(){
       store.findAndToggleChecked(id);
       render();
     });
-  }
-  
-  function toggleCheckedItemsFilter() {
-    store.hideCheckedItems = !store.hideCheckedItems;
   }
   
   function setSearchTerm(val) {
@@ -123,8 +108,8 @@ const shoppingList = (function(){
   }
   
   function handleToggleFilterClick() {
-    $('.js-filter-checked').click(() => {x
-      toggleCheckedItemsFilter();
+    $('.js-filter-checked').click(() => {
+      store.toggleCheckedFilter();
       render();
     });
   }
